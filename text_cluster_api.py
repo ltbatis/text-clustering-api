@@ -62,6 +62,15 @@ def cluster():
     data_pivot.to_excel(writer, sheet_name='Cluster_Report',
                   encoding='utf-8', index=False)        
     
+    # insert chat
+    workbook = writer.book
+    worksheet = writer.sheets['Cluster_Report']
+    chart = workbook.add_chart({'type':'column'})
+    chart.add_series({
+        'values': '=Cluster_Report!$B$2:$B'+str(no_of_clusters+1)
+        })
+    
+    worksheet.insert_chart('E3', chart)
     
     writer.save()
     
